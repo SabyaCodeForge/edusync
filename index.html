@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TutorDesk — Suman Mondal</title>
+<meta name="description" content="Student Fee & Tuition Management App">
+<meta name="theme-color" content="#3F51E8">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="TutorDesk">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== SPLASH SCREEN ===================== -->
+<div id="splash-screen">
+  <div class="splash-logo-placeholder">
+    <span class="material-icons-round">school</span>
+  </div>
+  <div class="splash-title" id="splash-tuition-name">TutorDesk</div>
+  <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+</div>
+
+<!-- ===================== APP SHELL ===================== -->
+<div id="app" class="app-hidden">
+
+  <!-- ---------- DESKTOP SIDEBAR ---------- -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo-placeholder"><span class="material-icons-round">school</span></div>
+      <div class="brand-text">
+        <div class="brand-name" id="brand-tuition-name">TutorDesk</div>
+        <div class="brand-sub" id="brand-teacher-name">Suman Mondal</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <button class="nav-item active" data-page="dashboard">
+        <span class="material-icons-round">space_dashboard</span><span>Dashboard</span>
+      </button>
+      <button class="nav-item" data-page="students">
+        <span class="material-icons-round">groups</span><span>Students</span>
+      </button>
+      <button class="nav-item" data-page="batches">
+        <span class="material-icons-round">category</span><span>Batches</span>
+      </button>
+      <button class="nav-item" data-page="fees">
+        <span class="material-icons-round">payments</span><span>Fees</span>
+      </button>
+      <button class="nav-item" data-page="schedule">
+        <span class="material-icons-round">event_note</span><span>Schedule</span>
+      </button>
+      <button class="nav-item" data-page="backup">
+        <span class="material-icons-round">cloud_sync</span><span>Backup</span>
+      </button>
+      <button class="nav-item" data-page="settings">
+        <span class="material-icons-round">settings</span><span>Settings</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-copyright">
+        © 2026 Sabyasachi Mondal<br>All Rights Reserved
+      </div>
+    </div>
+  </aside>
+
+  <!-- ---------- MOBILE TOP BAR ---------- -->
+  <header class="mobile-topbar">
+    <button class="icon-btn" id="mobile-menu-btn"><span class="material-icons-round">menu</span></button>
+    <div class="mobile-topbar-title" id="mobile-page-title">Dashboard</div>
+    <button class="icon-btn" id="theme-toggle-mobile"><span class="material-icons-round">dark_mode</span></button>
+  </header>
+
+  <!-- ---------- MOBILE DRAWER (slides from side, mirrors sidebar) ---------- -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <aside class="mobile-drawer" id="mobile-drawer">
+    <div class="sidebar-brand">
+      <div class="brand-logo-placeholder"><span class="material-icons-round">school</span></div>
+      <div class="brand-text">
+        <div class="brand-name" id="drawer-tuition-name">TutorDesk</div>
+        <div class="brand-sub" id="drawer-teacher-name">Suman Mondal</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="drawer-nav">
+      <button class="nav-item active" data-page="dashboard"><span class="material-icons-round">space_dashboard</span><span>Dashboard</span></button>
+      <button class="nav-item" data-page="students"><span class="material-icons-round">groups</span><span>Students</span></button>
+      <button class="nav-item" data-page="batches"><span class="material-icons-round">category</span><span>Batches</span></button>
+      <button class="nav-item" data-page="fees"><span class="material-icons-round">payments</span><span>Fees</span></button>
+      <button class="nav-item" data-page="schedule"><span class="material-icons-round">event_note</span><span>Schedule</span></button>
+      <button class="nav-item" data-page="backup"><span class="material-icons-round">cloud_sync</span><span>Backup</span></button>
+      <button class="nav-item" data-page="settings"><span class="material-icons-round">settings</span><span>Settings</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-copyright">© 2026 Sabyasachi Mondal<br>All Rights Reserved</div>
+    </div>
+  </aside>
+
+  <!-- ---------- MAIN CONTENT ---------- -->
+  <main class="main-content" id="main-content">
+
+    <!-- ============ DASHBOARD PAGE ============ -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="page-subtitle" id="dashboard-date-line">Today's overview</p>
+        </div>
+        <div class="quick-search">
+          <span class="material-icons-round">search</span>
+          <input type="text" id="quick-search-input" placeholder="Search students, class, phone...">
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card neo-card grad-blue">
+          <div class="stat-icon"><span class="material-icons-round">groups</span></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-students">0</div>
+            <div class="stat-label">Total Students</div>
+          </div>
+        </div>
+        <div class="stat-card neo-card grad-indigo">
+          <div class="stat-icon"><span class="material-icons-round">how_to_reg</span></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-active-students">0</div>
+            <div class="stat-label">Active Students</div>
+          </div>
+        </div>
+        <div class="stat-card neo-card grad-green">
+          <div class="stat-icon"><span class="material-icons-round">task_alt</span></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-fees-paid">₹0</div>
+            <div class="stat-label">Fees Paid (This Month)</div>
+          </div>
+        </div>
+        <div class="stat-card neo-card grad-amber">
+          <div class="stat-icon"><span class="material-icons-round">hourglass_top</span></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-fees-pending">₹0</div>
+            <div class="stat-label">Fees Pending (This Month)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="neo-card progress-card">
+          <h3>Fee Collection Progress</h3>
+          <div class="progress-ring-wrap">
+            <svg viewBox="0 0 148 148" class="progress-ring"><defs><linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4059E5"/><stop offset="100%" stop-color="#6B3FE8"/></linearGradient></defs>
+              <circle class="progress-ring-bg" cx="74" cy="74" r="61"></circle>
+              <circle class="progress-ring-fill" id="progress-ring-fill" cx="74" cy="74" r="61"></circle>
+            </svg>
+            <div class="progress-ring-text">
+              <span id="progress-ring-percent">0%</span>
+              <small>Collected</small>
+            </div>
+          </div>
+          <p class="progress-caption" id="progress-caption">₹0 of ₹0 collected this month</p>
+        </div>
+
+        <div class="neo-card schedule-card">
+          <h3><span class="material-icons-round">today</span> Today's Tuition Schedule</h3>
+          <div id="today-schedule-list" class="today-schedule-list">
+            <p class="empty-hint">No classes scheduled for today.</p>
+          </div>
+        </div>
+
+        <div class="neo-card recent-card">
+          <h3><span class="material-icons-round">history</span> Recently Added Students</h3>
+          <div id="recent-students-list" class="recent-students-list">
+            <p class="empty-hint">No students added yet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STUDENTS PAGE ============ -->
+    <section class="page" id="page-students">
+      <div class="page-header">
+        <div>
+          <h1>Students</h1>
+          <p class="page-subtitle">Manage all your students</p>
+        </div>
+        <div class="quick-search">
+          <span class="material-icons-round">search</span>
+          <input type="text" id="students-search-input" placeholder="Search by name, class, phone...">
+        </div>
+      </div>
+
+      <div class="filter-chip-row" id="students-filter-row">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="active">Active</button>
+        <button class="chip" data-filter="inactive">Inactive</button>
+        <button class="chip" data-filter="paid">Paid (This Month)</button>
+        <button class="chip" data-filter="pending">Pending (This Month)</button>
+      </div>
+
+      <div class="neo-card table-card">
+        <div class="table-scroll">
+          <table class="data-table" id="students-table">
+            <thead>
+              <tr>
+                <th>Name</th><th>Class</th><th>School</th><th>Batch</th><th>Guardian Phone</th>
+                <th>Monthly Fee</th><th>Status</th><th>This Month</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="students-table-body"></tbody>
+          </table>
+        </div>
+        <p class="empty-hint" id="students-empty-hint" style="display:none;">No students found. Tap + to add one.</p>
+      </div>
+    </section>
+
+    <!-- ============ BATCHES PAGE ============ -->
+    <section class="page" id="page-batches">
+      <div class="page-header">
+        <div>
+          <h1>Batches</h1>
+          <p class="page-subtitle">Group students into class batches</p>
+        </div>
+        <button class="btn-primary ripple" id="add-batch-btn">
+          <span class="material-icons-round">add</span> Add Batch
+        </button>
+      </div>
+
+      <p class="empty-hint" id="batches-empty-hint" style="display:none; margin-bottom:18px;">No batches yet. Tap "Add Batch" to create one — you can group students by class, subject, or time slot.</p>
+      <div class="batches-grid" id="batches-grid-container"></div>
+    </section>
+
+    <!-- ============ FEES PAGE ============ -->
+    <section class="page" id="page-fees">
+      <div class="page-header">
+        <div>
+          <h1>Fee Management</h1>
+          <p class="page-subtitle">Track monthly payments for every student</p>
+        </div>
+        <div class="month-picker">
+          <button class="icon-btn" id="fees-prev-month"><span class="material-icons-round">chevron_left</span></button>
+          <div id="fees-current-month" class="month-label">June 2026</div>
+          <button class="icon-btn" id="fees-next-month"><span class="material-icons-round">chevron_right</span></button>
+        </div>
+      </div>
+
+      <div class="filter-chip-row" id="fees-filter-row">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="paid">Paid</button>
+        <button class="chip" data-filter="pending">Pending</button>
+        <select id="fees-batch-filter" class="batch-filter-select">
+          <option value="all">All Batches</option>
+        </select>
+        <button class="mini-btn mark-paid ripple" id="fees-bulk-mark-paid-btn" style="display:none;">
+          <span class="material-icons-round">done_all</span> Mark Batch Paid
+        </button>
+      </div>
+
+      <div class="neo-card table-card">
+        <div class="table-scroll">
+          <table class="data-table" id="fees-table">
+            <thead>
+              <tr><th>Name</th><th>Class</th><th>Monthly Fee</th><th>Status</th><th>Payment Date</th><th>Action</th></tr>
+            </thead>
+            <tbody id="fees-table-body"></tbody>
+          </table>
+        </div>
+        <p class="empty-hint" id="fees-empty-hint" style="display:none;">No students yet.</p>
+      </div>
+    </section>
+
+    <!-- ============ SCHEDULE PAGE ============ -->
+    <section class="page" id="page-schedule">
+      <div class="page-header">
+        <div>
+          <h1>Tuition Schedule</h1>
+          <p class="page-subtitle">Weekly class timetable</p>
+        </div>
+      </div>
+
+      <div class="filter-chip-row" id="schedule-day-row">
+        <button class="chip active" data-day="all">All Days</button>
+        <button class="chip" data-day="Sunday">Sun</button>
+        <button class="chip" data-day="Monday">Mon</button>
+        <button class="chip" data-day="Tuesday">Tue</button>
+        <button class="chip" data-day="Wednesday">Wed</button>
+        <button class="chip" data-day="Thursday">Thu</button>
+        <button class="chip" data-day="Friday">Fri</button>
+        <button class="chip" data-day="Saturday">Sat</button>
+      </div>
+
+      <div class="schedule-list" id="schedule-list-container">
+        <p class="empty-hint">No schedules found. Add schedule details from a student's profile.</p>
+      </div>
+    </section>
+
+    <!-- ============ BACKUP PAGE ============ -->
+    <section class="page" id="page-backup">
+      <div class="page-header">
+        <div>
+          <h1>Backup &amp; Restore</h1>
+          <p class="page-subtitle">Keep your data safe</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="neo-card backup-action-card">
+          <span class="material-icons-round backup-icon">file_download</span>
+          <h3>Export Data</h3>
+          <p>Save all students, fees and schedules as a JSON backup file.</p>
+          <button class="btn-primary ripple" id="export-json-btn">Export JSON</button>
+        </div>
+        <div class="neo-card backup-action-card">
+          <span class="material-icons-round backup-icon">file_upload</span>
+          <h3>Import Data</h3>
+          <p>Restore your data from a previously exported JSON backup file.</p>
+          <input type="file" id="import-json-input" accept="application/json" hidden>
+          <button class="btn-secondary ripple" id="import-json-btn">Import JSON</button>
+        </div>
+        <div class="neo-card backup-action-card danger-card">
+          <span class="material-icons-round backup-icon">delete_forever</span>
+          <h3>Reset All Data</h3>
+          <p>Permanently erase all students, fees and schedules from this device.</p>
+          <button class="btn-danger ripple" id="reset-data-btn">Reset All Data</button>
+        </div>
+      </div>
+
+      <div class="neo-card" style="margin-top:24px;">
+        <div class="backup-snapshots-header">
+          <div>
+            <h3>Local Snapshots</h3>
+            <p class="page-subtitle" style="margin-top:4px;">Auto-saved every 7 days · last 6 kept · 100% on-device</p>
+          </div>
+          <button class="btn-secondary ripple" id="manual-snapshot-btn">
+            <span class="material-icons-round">add_circle_outline</span> Save Snapshot Now
+          </button>
+        </div>
+        <div id="snapshots-list-container" style="margin-top:16px;">
+          <p class="empty-hint">No snapshots yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SETTINGS PAGE ============ -->
+    <section class="page" id="page-settings">
+      <div class="page-header">
+        <div>
+          <h1>Settings</h1>
+          <p class="page-subtitle">Personalize your app</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="neo-card settings-card">
+          <h3>Profile</h3>
+          <div class="form-group">
+            <label>Teacher Name</label>
+            <input type="text" id="setting-teacher-name" placeholder="Suman Mondal">
+          </div>
+          <div class="form-group">
+            <label>Tuition Name</label>
+            <input type="text" id="setting-tuition-name" placeholder="e.g. TutorDesk by Suman Sir">
+          </div>
+          <button class="btn-primary ripple" id="save-settings-btn">Save Profile</button>
+        </div>
+
+        <div class="neo-card settings-card">
+          <h3>Appearance</h3>
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-title">Dark Mode</div>
+              <div class="settings-row-sub">Switch between light and dark theme</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="dark-mode-toggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="neo-card settings-card">
+          <h3>App Update</h3>
+          <p class="settings-row-sub" style="margin-bottom:14px;">Check if a newer version of TutorDesk is available and update instantly — no reinstall needed.</p>
+          <button class="btn-primary ripple" id="update-app-btn">
+            <span class="material-icons-round" id="update-app-icon">sync</span>
+            <span id="update-app-label">Check for Update</span>
+          </button>
+          <p class="empty-hint" id="update-status-hint" style="display:none; margin-top:10px;"></p>
+        </div>
+
+        <div class="neo-card settings-card">
+          <h3>About</h3>
+          <div class="about-row"><span>App Version</span><strong id="about-app-version">2.0.0</strong></div>
+          <div class="about-row"><span>Licensed To</span><strong id="about-teacher-name">—</strong></div>
+          <div class="about-row"><span>Storage</span><strong>Local Device Only</strong></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ---------- FLOATING ADD BUTTON ---------- -->
+  <button class="fab" id="fab-add-student" title="Add Student">
+    <span class="material-icons-round">add</span>
+  </button>
+
+  <!-- ---------- MOBILE BOTTOM NAVIGATION ---------- -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bnav-item active" data-page="dashboard"><span class="material-icons-round">space_dashboard</span><span>Home</span></button>
+    <button class="bnav-item" data-page="students"><span class="material-icons-round">groups</span><span>Students</span></button>
+    <button class="bnav-item" data-page="fees"><span class="material-icons-round">payments</span><span>Fees</span></button>
+    <button class="bnav-item" data-page="schedule"><span class="material-icons-round">event_note</span><span>Schedule</span></button>
+    <button class="bnav-item" data-page="settings"><span class="material-icons-round">settings</span><span>Settings</span></button>
+  </nav>
+
+</div>
+
+<!-- ===================== STUDENT FORM MODAL ===================== -->
+<div class="modal-overlay" id="student-modal-overlay">
+  <div class="modal glass-card" id="student-modal">
+    <div class="modal-header">
+      <h2 id="student-modal-title">Add Student</h2>
+      <button class="icon-btn" id="student-modal-close"><span class="material-icons-round">close</span></button>
+    </div>
+    <div class="modal-body">
+      <form id="student-form">
+        <input type="hidden" id="student-id">
+
+        <div class="form-section-title">Basic Information</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="f-name" required>
+          </div>
+          <div class="form-group">
+            <label>Class *</label>
+            <input type="text" id="f-class" required placeholder="e.g. Class 8">
+          </div>
+          <div class="form-group">
+            <label>School</label>
+            <input type="text" id="f-school">
+          </div>
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" id="f-dob">
+          </div>
+          <div class="form-group">
+            <label>Student Phone (Optional)</label>
+            <input type="tel" id="f-student-phone">
+          </div>
+          <div class="form-group">
+            <label>Admission Date</label>
+            <input type="date" id="f-admission-date">
+          </div>
+        </div>
+
+        <div class="form-section-title">Guardian &amp; Address</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Guardian Name *</label>
+            <input type="text" id="f-guardian-name" required>
+          </div>
+          <div class="form-group">
+            <label>Guardian Phone *</label>
+            <input type="tel" id="f-guardian-phone" required>
+          </div>
+          <div class="form-group full-span">
+            <label>Address</label>
+            <textarea id="f-address" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section-title">Fee &amp; Status</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Monthly Fee (₹) *</label>
+            <input type="number" id="f-monthly-fee" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="f-status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="form-group full-span">
+            <label>Notes (Optional)</label>
+            <textarea id="f-notes" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="form-section-title">Tuition Schedule</div>
+        <div id="schedule-rows-container"></div>
+        <button type="button" class="btn-secondary ripple small-btn" id="add-schedule-row-btn">
+          <span class="material-icons-round">add</span> Add Schedule Slot
+        </button>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary ripple" id="student-form-cancel">Cancel</button>
+          <button type="submit" class="btn-primary ripple">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VIEW STUDENT MODAL ===================== -->
+<div class="modal-overlay" id="view-modal-overlay">
+  <div class="modal glass-card" id="view-modal">
+    <div class="modal-header">
+      <h2>Student Profile</h2>
+      <button class="icon-btn" id="view-modal-close"><span class="material-icons-round">close</span></button>
+    </div>
+    <div class="modal-body" id="view-modal-body"></div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM DIALOG ===================== -->
+<div class="modal-overlay" id="confirm-modal-overlay">
+  <div class="modal glass-card confirm-modal">
+    <div class="modal-body">
+      <span class="material-icons-round confirm-icon" id="confirm-icon">warning</span>
+      <h3 id="confirm-title">Are you sure?</h3>
+      <p id="confirm-message">This action cannot be undone.</p>
+      <div class="modal-actions center">
+        <button class="btn-secondary ripple" id="confirm-cancel-btn">Cancel</button>
+        <button class="btn-danger ripple" id="confirm-ok-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BATCH FORM MODAL ===================== -->
+<div class="modal-overlay" id="batch-modal-overlay">
+  <div class="modal glass-card" id="batch-modal">
+    <div class="modal-header">
+      <h2 id="batch-modal-title">Add Batch</h2>
+      <button class="icon-btn" id="batch-modal-close"><span class="material-icons-round">close</span></button>
+    </div>
+    <div class="modal-body">
+      <form id="batch-form">
+        <input type="hidden" id="batch-id">
+        <div class="form-grid">
+          <div class="form-group full-span">
+            <label>Batch Name *</label>
+            <input type="text" id="bf-name" required placeholder="e.g. Class 9 Evening Batch">
+          </div>
+          <div class="form-group">
+            <label>Subject(s)</label>
+            <input type="text" id="bf-subject" placeholder="e.g. Mathematics, Science">
+          </div>
+          <div class="form-group">
+            <label>Day</label>
+            <select id="bf-day">
+              <option>Sunday</option><option>Monday</option><option>Tuesday</option>
+              <option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Time</label>
+            <input type="time" id="bf-time">
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" id="bf-location" placeholder="e.g. Home Tuition">
+          </div>
+          <div class="form-group">
+            <label>Batch Fee / Student (₹)</label>
+            <input type="number" id="bf-fee" min="0" placeholder="Leave blank to use individual fees">
+          </div>
+          <div class="form-group full-span">
+            <label>Notes</label>
+            <textarea id="bf-notes" rows="2" placeholder="Optional notes about this batch"></textarea>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary ripple" id="batch-form-cancel">Cancel</button>
+          <button type="submit" class="btn-primary ripple">Save Batch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BATCH ROSTER MODAL ===================== -->
+<div class="modal-overlay" id="batch-roster-modal-overlay">
+  <div class="modal glass-card" id="batch-roster-modal">
+    <div class="modal-header">
+      <h2 id="batch-roster-modal-title">Manage Roster</h2>
+      <button class="icon-btn" id="batch-roster-modal-close"><span class="material-icons-round">close</span></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;">Check students to add them to this batch. Uncheck to remove.</p>
+      <div id="batch-roster-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TOAST CONTAINER ===================== -->
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

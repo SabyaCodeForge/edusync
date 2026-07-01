@@ -1,0 +1,25 @@
+{
+  "name": "TutorDesk — Tuition Manager",
+  "short_name": "TutorDesk",
+  "description": "Student Fee & Tuition Management App for Suman Mondal's private tuition",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E8ECF4",
+  "theme_color": "#4059E5",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
